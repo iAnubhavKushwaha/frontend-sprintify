@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiUser, FiMoreHorizontal } from 'react-icons/fi';
+import { FiUser,} from 'react-icons/fi';
 
 const Kanban = ({ tickets, onUpdateTicket, teamMembers}) => {
   const [showAssignDropdown, setShowAssignDropdown] = useState(null);

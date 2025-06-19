@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { FiMenu, FiX, FiBell, FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import axios from 'axios';
+import { getProjects } from "../../Services/projectService";
 
 const Navbar = ({ onMenuClick, sidebarOpen }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -23,20 +23,17 @@ const Navbar = ({ onMenuClick, sidebarOpen }) => {
   // Fetch all projects on component mount
   useEffect(() => {
     const fetchProjects = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:5000/api/projects', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setAllProjects(response.data || []);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
+      if (user) {
+        try {
+          const projects = await getProjects(); // Using the project service function
+          setAllProjects(projects || []);
+        } catch (error) {
+          console.error('Error fetching projects:', error);
+        }
       }
     };
 
-    if (user) {
-      fetchProjects();
-    }
+    fetchProjects();
   }, [user]);
 
   // Search functionality
@@ -279,7 +276,6 @@ const Navbar = ({ onMenuClick, sidebarOpen }) => {
                   >
                     ⚙️ Settings
                   </button>
-
                 </div>
                 <div className="border-t border-gray-100 py-2">
                   <button
