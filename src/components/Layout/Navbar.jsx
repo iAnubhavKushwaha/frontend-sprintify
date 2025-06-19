@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { FiMenu, FiX, FiBell, FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { getProjects } from "../../Services/projectService";
+import {getProjects} from "../../services/projectService";
 
 const Navbar = ({ onMenuClick, sidebarOpen }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -25,7 +25,7 @@ const Navbar = ({ onMenuClick, sidebarOpen }) => {
     const fetchProjects = async () => {
       if (user) {
         try {
-          const projects = await getProjects(); // Using the project service function
+          const projects = await getProjects();
           setAllProjects(projects || []);
         } catch (error) {
           console.error('Error fetching projects:', error);

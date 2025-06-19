@@ -28,12 +28,7 @@ const TeamInvitation = ({ project, onInvitationSent }) => {
     setMessage('');
 
     try {
-      console.log('🚀 Sending invitation to:', email);
-      
-      const response = await invitationService.sendInvitation(project._id, email);
-      
-      console.log('✅ Invitation response:', response);
-      
+      const response = await invitationService.sendInvitation(project._id, email);    
       if (response.success) {
         setMessage(`✅ Invitation sent successfully to ${email}!`);
         setMessageType('success');
